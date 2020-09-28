@@ -1,2 +1,2 @@
 #!/usr/bin/main.rb
-puts "Hello!"
+puts "Hello world!"
