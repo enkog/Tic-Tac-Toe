@@ -2,8 +2,6 @@
 
 The main goal of this project is to build the Tic Tac Toe game putting into practice the main concepts of Ruby's Object Oriented Programming.
 
-For this first milestone, we where asked to set up the working environment which we did.
-
 ## Built With
 
 -   Ruby
