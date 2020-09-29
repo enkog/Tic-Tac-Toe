@@ -10,4 +10,13 @@ class UserInterface
     @player_two = player_two
     @token = ['X','O']
   end
+
+  def player_name
+    print "Enter your name(player_one): "
+    player_one = gets.chomp.upcase
+    print "Enter your name(player_two): "
+    player_two = gets.chomp.upcase
+    puts ""
+    puts "#{player_one} VS #{player_two}"
+  end
 end
