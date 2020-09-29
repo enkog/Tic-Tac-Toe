@@ -29,4 +29,16 @@ class UserInterface
     puts "---------"
     puts "#{@board[6]} | #{@board[7]} | #{@board[8]}"
   end
+
+  def select_token
+    puts "#{player_one}, Choose a token: 'X' or 'O'"
+    while selected_token = gets
+      selected_token = selected_token.chomp.upcase
+      if !"#{@token}".include?selected_token
+        puts "Invalid token, please select 'X' or 'O'"
+      else
+        puts "Good choice!!"
+        break
+      end
+    end
 end
