@@ -64,6 +64,10 @@ class Game
     end
   end
 
+  def current_player
+    # dictates the current player in the game
+  end
+
   def turn
     # Controlling valid and invalid moves
   end
