@@ -1,6 +1,5 @@
-# frozen_string_literal: true
-
-# !/usr/bin/env ruby
+#!/usr/bin/env ruby
+# frozen_string_literal: false
 
 puts 'WELCOME TO TIC-TAC-TOE GAME !!!'
 puts
