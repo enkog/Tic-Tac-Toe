@@ -1,50 +1,51 @@
 AllCops:
-  Exclude:
-    - "Guardfile"
-    - "Rakefile"
+    Exclude:
+        - "Guardfile"
+        - "Rakefile"
 
-  DisplayCopNames: true
+    DisplayCopNames: true
 
 Layout/LineLength:
-  Max: 130
+    Max: 130
 Metrics/MethodLength:
-  Max: 20
+    Max: 20
 Metrics/AbcSize:
-  Max: 50
+    Max: 50
 Metrics/ClassLength:
-  Max: 150
+    Max: 150
 Metrics/BlockLength:
-  ExcludedMethods: ['describe']
-  Max: 30
+    ExcludedMethods: ["describe"]
+    Max: 30
 
-
+Lint/UselessAssignment:
+    Enabled: false
 Style/Documentation:
-  Enabled: false
+    Enabled: false
 Style/ClassAndModuleChildren:
-  Enabled: false
+    Enabled: false
 Style/EachForSimpleLoop:
-  Enabled: false
+    Enabled: false
 Style/AndOr:
-  Enabled: false
+    Enabled: false
 Style/DefWithParentheses:
-  Enabled: false
+    Enabled: false
 Style/FrozenStringLiteralComment:
-  EnforcedStyle: never
+    EnforcedStyle: never
 
 Layout/HashAlignment:
-  EnforcedColonStyle: key
+    EnforcedColonStyle: key
 Layout/ExtraSpacing:
-  AllowForAlignment: false
+    AllowForAlignment: false
 Layout/MultilineMethodCallIndentation:
-  Enabled: true
-  EnforcedStyle: indented
+    Enabled: true
+    EnforcedStyle: indented
 Lint/RaiseException:
-  Enabled: false
+    Enabled: false
 Lint/StructNewOverride:
-  Enabled: false
+    Enabled: false
 Style/HashEachMethods:
-  Enabled: false
+    Enabled: false
 Style/HashTransformKeys:
-  Enabled: false
+    Enabled: false
 Style/HashTransformValues:
-  Enabled: false
+    Enabled: false
