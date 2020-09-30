@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-The main goal of this project is to build the Tic Tac Toe game putting into practice the main concepts of Ruby's Object Oriented Programming.
+The main goal of this project is to build the Tic Tac Toe game using only the basic flow of the game for user interaction.
 
 ## Built With
 
