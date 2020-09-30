@@ -17,7 +17,8 @@ Metrics/BlockLength:
     ExcludedMethods: ["describe"]
     Max: 30
 
-
+Style/FrozenStringLiteralComment:
+    Enabled: false
 Style/FrozenStringLiteralComment:
     Enabled: false
 Style/Documentation:
