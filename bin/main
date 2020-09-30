@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+
 class Game
   puts 'WELCOME TO TIC-TAC-TOE GAME !!!'
   puts
