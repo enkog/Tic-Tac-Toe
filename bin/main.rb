@@ -1,68 +1,63 @@
 #!/usr/bin/env ruby
-
 puts 'WELCOME TO TIC-TAC-TOE GAME !!!'
-puts
-attr_accessor :player_one, :player_two, :board # Getter and Setter methods
 
-# initialize instance variables
-def initialize(player_one, player_two)
-  @board = %w[1 2 3 4 5 6 7 8 9]
-  @player_one = player_one
-  @player_two = player_two
-  @game_tokens = %w[X O]
-  @assigned_tokens = {}
+  # create an empty game board
+    @board = %w[1 2 3 4 5 6 7 8 9]
+
+    # create game tokens as an array of 2 items
+    @game_tokens = %w[X O]
+
+    # create an empty hash to hold player and token info for each player
+    # that is, player_one: 'X', player_two: 'O' or vice versa
+    @assigned_tokens = {}
+  
+
+# register two players 
+puts 'Player 1, input name: '
+@player_one = gets.chomp
+
+puts 'Player 2, input name: '
+@player_two = gets.chomp
+
+# allow first player choose a game token X or O
+puts "#{player_one}, Choose a token: 'X' or 'O'"
+
+while selected_token = gets.chomp
+    selected_token = selected_token.upcase
+
+    # validate the token chosen
+    if !@game_tokens.to_s.include? selected_token
+      puts "Invalid token, please select 'X' or 'O'"
+    else
+      # assign the selected_token to player_one and the other token to player_two
+      @assigned_tokens[:player_one] = selected_token
+      @assigned_tokens[:player_two] = selected_token == @game_tokens[0] ? @game_tokens[1] : @game_tokens[0]
+      puts 'Tokens assigned successfully'
+      puts "#{player_one}'s Token:  #{@assigned_tokens[:player_one]}"
+      puts "#{player_two}'s Token:  #{@assigned_tokens[:player_two]}"
+      break
+    end
 end
 
-# Display the game board
-def display_board(_board)
-  puts 'LET THE GAME BEGIN!'
-  puts
-  puts " #{@board[0]}  | #{@board[1]}  | #{@board[2]}"
-  puts '-------------'
-  puts " #{@board[3]}  | #{@board[4]}  | #{@board[5]}"
-  puts '-------------'
-  puts " #{@board[6]}  | #{@board[7]}  | #{@board[8]}"
-end
+# display gameboard with available moves
+# prompt current player to select a move which is an index
+puts 'Enter a position: '
+position = gets.chomp
+puts position
 
-# accept and display player name
-def player_name
-  puts 'Player 1, input name: '
-  @player_one = gets.chomp.upcase
+# validate the position. If already taken or if out of available board index, display message and prompt for the input again.
+# if position is valid, update board
+board[index] = currentPlayersToken
 
-  puts 'Player 2, input name: '
-  @player_two = gets.chomp.upcase
-end
+# switch to next player's turn
+# method for player turn will be called here, which will return the next player name whose turn it is to play.
 
-def select_token
-  # player-1 selects a token and the other token is assigned to player-2
-end
+# if current player move is up to three turns
+# check for winning combination
+# if current move matches winning combination
+puts 'That is a winning combination'
+# display winning player's name, end game
 
-# players inputs where they would like to go on the board
-def input_to_index(board, curr_player)
-  puts " #{curr_player} (#{@assigned_tokens[curr_player]}), choose a position from 1 to 9 to place your token"
-  chosen_index = gets.chomp
-  # check token validity
-  valid = validMove(chosen_index, board)
-  @board[chosen_index] = @assigned_tokens[curr_player] if valid
-end
-
-# checks if players made valid moves
-def valid_move(index, board)
-  if (board[index].is_a? Integer) && (1..9).include?(index)
-    true
-  else
-    false
-  end
-end
-
-def current_player
-  # detects the current player
-end
-
-def turn
-  # Controlling valid and invalid moves
-end
-
-def turn_count
-  # Controlling the number of turns played
-end
+# otherwise pass turn to next player if board is not full
+# if board is full check winning combination again to determine winner
+# if no winner can be determined, then declare a draw, end game
