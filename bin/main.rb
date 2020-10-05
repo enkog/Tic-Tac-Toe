@@ -39,7 +39,7 @@ winner_found = false
 
 # call current player method to determine who to play first
 
-while winner_found || no_winner
+while !winner_found || !no_winner
   # display gameboard
   # prompt current player to select a move which is an index
   puts 'Enter a position: '
