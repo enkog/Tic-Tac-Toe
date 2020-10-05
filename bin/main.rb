@@ -32,32 +32,42 @@ else
   puts "#{@player_two}'s Token:  #{@assigned_tokens[:player_two]}"
 end
 
-# display gameboard with available moves
-# prompt current player to select a move which is an index
-puts 'Enter a position: '
-position = gets.chomp
-puts position
+no_winner = false
+winner_found = false
 
-# validate the position. If already taken or if out of available board index,
-# display message and prompt for the input again.
+# determine first player
 
-# if position is valid, update board with the current player's token
+# call current player method to determine who to play first
 
-# switch to next player's turn
-# method for player turn will be called here,
-# which will return the next player name whose turn it is to play.
+while winner_found || no_winner
+  # display gameboard
+  # prompt current player to select a move which is an index
+  puts 'Enter a position: '
+  position = gets.chomp
+  puts position
 
-# Display gameboard with the available positions
+  # validate the position. If already taken or if out of available board index,
+  # display message and prompt for the input again.
 
-# if current player move is up to three turns
-# check for winning combination
-# if current move matches winning combination
-puts 'That is a winning combination'
-# display winning player's name, end game
+  # if position is valid,
+  # update board with the current player's token
 
-# otherwise pass turn to next player if board is not full
-# if board is full check winning combination again to determine winner
-# if no winner can be determined, then declare a draw.
+  # if current player move is up to three turns
+  # check for winning combination
+  # if current move matches winning combination
+  puts 'That is a winning combination'
+  winner_found = true
+  # display winning player's name, end game
+
+  # else if board is full
+  # check for winning combination
+  # if winning combination is not found
+  no_winner = true
+  # then declare a draw.
+
+  # else
+  # call current player method to determine who to play next
+end
 
 # prompt the player to choose to play again or exit
 
