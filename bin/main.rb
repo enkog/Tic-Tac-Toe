@@ -1,76 +1,63 @@
 #!/usr/bin/env ruby
+require_relative '../lib/player.rb'
+require_relative '../lib/game.rb'
 
-puts 'WELCOME TO TIC-TAC-TOE GAME !!!'
+  def create_player(name, token)
+    player = Player.new
+    player.name = name
+    player.token = token
 
-# create an empty game board
-@board = %w[1 2 3 4 5 6 7 8 9]
+    player
+  end
 
-# create game tokens as an array of 2 items
-@game_tokens = %w[X O]
+  # Display the game board
+  def display_board(board)
+    puts " #{board[0]}  | #{board[1]}  | #{board[2]}"
+    puts '-------------'
+    puts " #{board[3]}  | #{board[4]}  | #{board[5]}"
+    puts '-------------'
+    puts " #{board[6]}  | #{board[7]}  | #{board[8]}"
+  end
 
-# create an empty hash to hold player and token info for each player
-@assigned_tokens = {}
+  # player-1 selects a token and the other token is assigned to player-2
+  def select_token(player_one, player_two, game_tokens)
+    assigned_tokens = {}
+    puts "#{player_one}, Choose a token: 'X' or 'O'"
+    selected_token = gets.chomp.upcase
+    loop do
+      if !game_tokens.include? selected_token
+        puts "Invalid token, please select 'X' or 'O'"
+        selected_token = gets.chomp.upcase
+      else
+        assigned_tokens[:player_one] = selected_token
+        assigned_tokens[:player_two] = selected_token == game_tokens[0] ? game_tokens[1] : game_tokens[0]
+        puts 'Good choice!!'
+        puts "#{player_one}'s Token:  #{assigned_tokens[:player_one]}"
+        puts "#{player_two}'s Token:  #{assigned_tokens[:player_two]}"
+        break
+      end
+    end
 
-# register two players
-puts 'Player 1, input name: '
-@player_one = gets.chomp
+    assigned_tokens
+  end
 
-puts 'Player 2, input name: '
-@player_two = gets.chomp
+   # returns board index where player's token is to be placed
+   def input_to_index(chosen_index, board)
+    # check token validity
+    valid = valid_move(chosen_index, board)
+    return board[chosen_index] if valid
+  end
 
-# allow first player choose a game token X or O
-puts "#{@player_one}, Choose a token: 'X' or 'O'"
-selected_token = gets.chomp.upcase
+  # places player's token on the board
+  def move(board_index, token, board)
+    board[board_index] = token
+  end
 
-# validate the token chosen
-if !@game_tokens.to_s.include? selected_token
-  puts "Invalid token, please select 'X' or 'O'"
-else
-  # assign the selected_token to player_one and the other token to player_two
-  puts 'Tokens assigned successfully'
-  puts "#{@player_one}'s Token:  #{@assigned_tokens[:player_one]}"
-  puts "#{@player_two}'s Token:  #{@assigned_tokens[:player_two]}"
-end
-
-no_winner = false
-winner_found = false
-
-# determine first player
-
-# call current player method to determine who to play first
-
-while !winner_found || !no_winner
-  # display gameboard
-  # prompt current player to select a move which is an index
-  puts 'Enter a position: '
-  position = gets.chomp
-  puts position
-
-  # validate the position. If already taken or if out of available board index,
-  # display message and prompt for the input again.
-
-  # if position is valid,
-  # update board with the current player's token
-
-  # if current player move is up to three turns
-  # check for winning combination
-  # if current move matches winning combination
-  puts 'That is a winning combination'
-  winner_found = true
-  # display winning player's name, end game
-
-  # else if board is full
-  # check for winning combination
-  # if winning combination is not found
-  no_winner = true
-  # then declare a draw.
-
-  # else
-  # call current player method to determine who to play next
-end
-
-# prompt the player to choose to play again or exit
-
-puts 'Do you want to play again?'
-puts 'y/n'
-# Restart the game method if the player chooses y else exit the game
+  # checks if players made valid moves
+  def valid_move(index, board)
+    if (board[index].is_a? Integer) && (1..9).include?(index)
+      true
+    else
+      false
+    end
+  end
