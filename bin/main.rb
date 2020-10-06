@@ -61,3 +61,36 @@ require_relative '../lib/game.rb'
       false
     end
   end
+
+   # returns next token to be played
+   def switch_turn(last_token)
+    next_token = nil
+    next_token = last_token.token == 'X' ? 'O' : 'X'
+
+    next_token
+  end
+
+  def turn_count(curr_player)
+    curr_player.token
+  end
+
+  def check_winning?(player, board, _winning_combination)
+    winner_found = false
+    if player.move_count >= 3
+      token = player.token
+      # winning_token_positions = find_winning_token_positions(token, board, _winning_combination)
+
+      _winning_combination.each do |item|
+        winning_token_count = 0
+        item.each do |inner_item|
+          winning_token_count += 1 if board[inner_item] == token
+        end
+        if _winning_token_count == 3
+          winner_found = true
+          break
+        end
+      end
+    end
+
+    winner_found
+  end
