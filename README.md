@@ -11,7 +11,7 @@ The main goal of this project is to build the Tic Tac Toe game by building its g
 👤 **Kamwa Emmanuelle Alix**
 
 -   Github: [@emmanuellekamwa](https://github.com/emmanuellekamwa)
--   Twitter: [@twitterhandle](https://twitter.com/AlixKamwa)
+-   Twitter: [@AlixKamwa](https://twitter.com/AlixKamwa)
 -   Linkedin: [linkedin](https://linkedin.com/in/emmanuelle-kamwa-86145a1a4/)
 
 👤 **Oguadinma Nkiruka Ngozika**
