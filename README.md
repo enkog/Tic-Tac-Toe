@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-The main goal of this project is to build the Tic Tac Toe game using only the basic flow of the game for user interaction.
+The main goal of this project is to build the Tic Tac Toe game by building its game logic with the aid of classes and methods.
 
 ## Built With
 
