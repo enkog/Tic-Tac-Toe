@@ -1,96 +1,94 @@
 #!/usr/bin/env ruby
-require_relative '../lib/player.rb'
 require_relative '../lib/game.rb'
 
-  def create_player(name, token)
-    player = Player.new
-    player.name = name
-    player.token = token
+  WINNING_COMBINATION = [
+    [0, 1, 2], # top row
+    [3, 4, 5], # middle row
+    [6, 7, 8], # bottom row
+    [0, 4, 8], # left to right diagonal
+    [2, 4, 6], # right to left diagonal
+    [0, 3, 6], # left-most column
+    [1, 4, 7], # middle column
+    [2, 5, 8] # right-most column
+  ].freeze
 
-    player
-  end
+    board = %w[1 2 3 4 5 6 7 8 9]
+    game_tokens = %w[X O]
+    game = Game.new
 
-  # Display the game board
-  def display_board(board)
-    puts " #{board[0]}  | #{board[1]}  | #{board[2]}"
-    puts '-------------'
-    puts " #{board[3]}  | #{board[4]}  | #{board[5]}"
-    puts '-------------'
-    puts " #{board[6]}  | #{board[7]}  | #{board[8]}"
-  end
+  puts 'Welcome to tic tac toe game'
 
-  # player-1 selects a token and the other token is assigned to player-2
-  def select_token(player_one, player_two, game_tokens)
-    assigned_tokens = {}
-    puts "#{player_one}, Choose a token: 'X' or 'O'"
-    selected_token = gets.chomp.upcase
-    loop do
-      if !game_tokens.include? selected_token
-        puts "Invalid token, please select 'X' or 'O'"
-        selected_token = gets.chomp.upcase
-      else
-        assigned_tokens[:player_one] = selected_token
-        assigned_tokens[:player_two] = selected_token == game_tokens[0] ? game_tokens[1] : game_tokens[0]
-        puts 'Good choice!!'
-        puts "#{player_one}'s Token:  #{assigned_tokens[:player_one]}"
-        puts "#{player_two}'s Token:  #{assigned_tokens[:player_two]}"
-        break
-      end
-    end
+  # register the players
+  puts 'Player 1, input name: '
+  player_one_name = gets.chomp
 
-    assigned_tokens
-  end
+  puts 'Player 2, input name: '
+  player_two_name = gets.chomp
 
-   # returns board index where player's token is to be placed
-   def input_to_index(chosen_index, board)
-    # check token validity
-    valid = valid_move(chosen_index, board)
-    return board[chosen_index] if valid
-  end
+  player_one = game.create_player(player_one_name, nil, 0)
+  player_two = game.create_player(player_two_name, nil, 0)
 
-  # places player's token on the board
-  def move(board_index, token, board)
-    board[board_index] = token
-  end
+  # allow players to chose their tokens
+  game.select_tokens(player_one, player_two, game_tokens)
 
-  # checks if players made valid moves
-  def valid_move(index, board)
-    if (board[index].is_a? Integer) && (1..9).include?(index)
-      true
+  puts 'Let the game begin !!!'
+  # take players' inputs for game play
+
+  no_winner = false
+  winner_found = false
+  last_token = nil
+  current_player = nil
+
+  while !winner_found || !no_winner
+
+    # prompt current player to select a move which is an index
+    current_token = game.switch_turn(player_one, player_two, last_token)
+
+    if current_token == player_one.token
+      current_player = player_one
+      puts "#{player_one.name}'s Turn (#{current_token})"
     else
-      false
+      current_player = player_two
+      puts "#{player_two.name}'s Turn (#{current_token})"
     end
-  end
 
-   # returns next token to be played
-   def switch_turn(last_token)
-    next_token = nil
-    next_token = last_token.token == 'X' ? 'O' : 'X'
+    # display current board before player's entry
+    game.display_board(board)
 
-    next_token
-  end
+    puts 'Enter a position: '
+    position = gets.chomp
 
-  def turn_count(curr_player)
-    curr_player.token
-  end
+    # translate player's input into board index
+    board_index = game.input_to_index(position, board)
 
-  def check_winning?(player, board, _winning_combination)
-    winner_found = false
-    if player.move_count >= 3
-      token = player.token
-      # winning_token_positions = find_winning_token_positions(token, board, _winning_combination)
+    # update board with the current player's token at chosen board index
+    board[board_index - 1] = current_token
+    last_token = current_token
+    current_player.move_count += 1
 
-      _winning_combination.each do |item|
-        winning_token_count = 0
-        item.each do |inner_item|
-          winning_token_count += 1 if board[inner_item] == token
-        end
-        if _winning_token_count == 3
-          winner_found = true
+    # display current board after player's entry
+    game.display_board(board)
+
+    # if current player move is up to three turns
+    next unless current_player.move_count >= 3
+
+    # check for winner
+    winner_found = game.check_winning(current_player, board, WINNING_COMBINATION)
+
+    if winner_found
+      puts "#{current_player.name} has won"
+      break
+    else
+      if game.check_board_full
+        winner_found = game.check_winning(current_player, board, WINNING_COMBINATION)
+        if winner_found
+          puts "#{current_player.name} has won"
           break
+        else
+          # draw
+          no_winner = true
+          puts 'There is a tie'
         end
       end
     end
-
-    winner_found
   end
