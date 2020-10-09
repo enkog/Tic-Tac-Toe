@@ -130,8 +130,8 @@ Welcome to the Tic-Tac-Toe game everyone. For those who are new to this game and
 
 👤 **Kamwa Emmanuelle Alix**
 
--   Github: [@githubhandle](https://github.com/emmanuellekamwa)
--   Twitter: [@twitterhandle](https://twitter.com/AlixKamwa)
+-   Github: [@emmanuellekamwa](https://github.com/emmanuellekamwa)
+-   Twitter: [@AlixKamwa](https://twitter.com/AlixKamwa)
 -   Linkedin: [linkedin](https://linkedin.com/in/emmanuelle-kamwa-86145a1a4/)
 
 👤 **Oguadinma Nkiruka Ngozika**

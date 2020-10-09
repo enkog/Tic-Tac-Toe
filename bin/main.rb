@@ -1,39 +1,55 @@
 #!/usr/bin/env ruby
 require_relative '../lib/game.rb'
 
-WINNING_COMBINATION = [
-  [0, 1, 2], # top row
-  [3, 4, 5], # middle row
-  [6, 7, 8], # bottom row
-  [0, 4, 8], # left to right diagonal
-  [2, 4, 6], # right to left diagonal
-  [0, 3, 6], # left-most column
-  [1, 4, 7], # middle column
-  [2, 5, 8] # right-most column
-].freeze
-
-board = %w[1 2 3 4 5 6 7 8 9]
-game_tokens = %w[X O]
 game = Game.new
 
-puts 'Welcome to tic tac toe game'
+# Display the game board
+def display_board(board)
+  puts " #{board[0]}  | #{board[1]}  | #{board[2]}"
+  puts '-------------'
+  puts " #{board[3]}  | #{board[4]}  | #{board[5]}"
+  puts '-------------'
+  puts " #{board[6]}  | #{board[7]}  | #{board[8]}"
+end
+
+puts 'WELCOME TO TIC-TAC-TOE GAME !!!'
+puts
 
 # register the players
-puts 'Player 1, input name: '
+puts 'Player 1, input your name: '
 player_one_name = gets.chomp
 
 puts 'Player 2, input name: '
 player_two_name = gets.chomp
-
+puts
 player_one = game.create_player(player_one_name, nil, 0)
 player_two = game.create_player(player_two_name, nil, 0)
 
 # allow players to chose their tokens
-game.select_tokens(player_one, player_two, game_tokens)
+puts "#{player_one.name}, Choose a token: 'X' or 'O'"
+selected_token = gets.chomp.upcase
 
-puts 'Let the game begin !!!'
+loop do
+  if !game.game_tokens.include? selected_token
+    puts "Invalid token, please select 'X' or 'O'"
+    selected_token = gets.chomp.upcase
+  else
+    player_one.token = selected_token
+    player_two.token = selected_token == game.game_tokens[0] ? game.game_tokens[1] : game.game_tokens[0]
+
+    puts 'Good choice!!'
+    puts
+    puts "#{player_one.name}'s Token:  #{player_one.token}"
+    puts "#{player_two.name}'s Token:  #{player_two.token}"
+    break
+  end
+end
+
+puts
+puts 'LET THE GAME BEGIN !!!'
+puts
+
 # take players' inputs for game play
-
 no_winner = false
 winner_found = false
 last_token = nil
@@ -53,45 +69,38 @@ while !winner_found || !no_winner
   end
 
   # display current board before player's entry
-  game.display_board(board)
+  display_board(game.board)
 
   puts 'Enter a position: '
   position = gets.chomp
 
   # translate player's input into board index
-  board_index = game.input_to_index(position.to_i, board)
+  board_index = game.input_to_index(position.to_i, game.board)
 
   # update board with the current player's token at chosen board index
-  board_position = board_index.pred
-  board[board_position] = current_token
+  game.update_board(board_index, game.board, current_token, current_player)
   last_token = current_token
-  current_player.move_count += 1
 
   # display current board after player's entry
-  game.display_board(board)
+  display_board(game.board)
+  is_board_full = game.check_board_full(game.board)
 
-  # if current player move is up to three turns
-  next unless current_player.move_count >= 3
-
-  # check for winner
-  winner_found = game.check_winning(current_player, board, WINNING_COMBINATION)
-
-  if winner_found
-    puts "#{current_player.name} has won"
-    break
-  else
-    is_board_full = game.check_board_full(board, game_tokens)
-    if is_board_full
-      winner_found = game.check_winning(current_player, board, WINNING_COMBINATION)
-    elsif winner_found
+  if is_board_full
+    winner_found = game.check_winning(current_player, game.board)
+    if winner_found
       puts "#{current_player.name} has won"
-      break
     else
       # draw
       no_winner = true
       puts 'There is a tie'
+    end
+    break
+  elsif current_player.move_count >= 3
+    # check for winner
+    winner_found = game.check_winning(current_player, game.board)
+    if winner_found
+      puts "#{current_player.name} has won"
       break
     end
   end
-
 end
