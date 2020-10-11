@@ -26,21 +26,24 @@ class Game
   end
 
   # returns board index where player's token is to be placed
-  def input_to_index(chosen_index, board)
+  def input_to_index(chosen_index, board, get_position)
     # check token validity
     valid = valid_move(chosen_index, board)
+    until valid
+      get_position.call
+      chosen_index = gets.chomp.to_i
+      valid = valid_move(chosen_index, board)
+      break if valid
+    end
 
-    return chosen_index if valid
+    chosen_index if valid
   end
 
   # checks if players made valid moves
   def valid_move(index, board)
     valid = false
     board_index = index.pred
-    if (0..9).include?(index)
-
-      valid = true unless @game_tokens.include?(board[board_index].to_s)
-    end
+    valid = true unless board[board_index] == 'X' || board[board_index] == 'O'
 
     valid
   end

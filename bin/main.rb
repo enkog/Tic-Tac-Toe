@@ -74,8 +74,10 @@ while !winner_found || !no_winner
   puts 'Enter a position: '
   position = gets.chomp
 
+  get_position = proc { puts 'Check the game board and choose a valid position' }
+
   # translate player's input into board index
-  board_index = game.input_to_index(position.to_i, game.board)
+  board_index = game.input_to_index(position.to_i, game.board, get_position)
 
   # update board with the current player's token at chosen board index
   game.update_board(board_index, game.board, current_token, current_player)
