@@ -1,12 +1,12 @@
 # Implementing Tic Tac Toe Game with Ruby
 
-This project is to demonstrate our knowledge of Object Oriented Programming Language in Ruby, building a tic-tac-toe game on the command line where two human players can play against each other and the board is displayed in between turns.
+This project is to demonstrate our knowledge of Object oriented programming in Ruby, building a tic-tac-toe game on the command line where two human players can play against each other and the board is displayed in between turns.
 
-![screenshot](./screenshot.png)
+![screenshot](screenshot.png)
 
 # About the Game - Tic-Tac-Toe
 
-According to [Wikipedia](https://en.wikipedia.org/wiki/Tic-tac-toe#:~:text=Tic%2Dtac%2Dtoe%20American,diagonal%20row%20is%20the%20winner.) Tic-tac-toe (American English), noughts and crosses (British English), or Xs and Os is a paper-and-pencil game for two players, X and O, who take turns marking the spaces in a 3×3 grid. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner...[readmore](https://en.wikipedia.org/wiki/Tic-tac-toe#:~:text=Tic%2Dtac%2Dtoe%20American,diagonal%20row%20is%20the%20winner.)
+According to Wikipedia, Tic-tac-toe (American English), noughts and crosses (British English), or Xs and Os is a paper-and-pencil game for two players, X and O, who take turns marking the spaces in a 3×3 grid. The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner...[readmore](https://en.wikipedia.org/wiki/Tic-tac-toe#:~:text=Tic%2Dtac%2Dtoe%20American,diagonal%20row%20is%20the%20winner.)
 
 # User Interface
 
@@ -26,48 +26,36 @@ Tic-Tac-Toe is a famous game where the aim is to have 3 consecutive tokens align
 
 # Class Definitions
 
-### **Player Class**:
+In this game project there are 3 main files
 
-Will interact with Board class to select where to place pieces
-Pieces placed will be represented by X or O
-
-# Live Demo
-
-[![Run on Repl.it](https://repl.it/badge/github/enkog/tic-tac-toe)](https://tic-tac-toe.enkog.repl.run/)
+    1- main.rb: This file is responsible for getting validated inputs from the user, outputting messages, and calling the game method.
+    2- player.rb: This file is responsible for storing player variables such as (name, sign).
+    3- game.rb: This file is contains the various game methods and calling the player method.
 
 ## Built With
 
 -   Ruby
+-   VS code
 
 # Getting Started
 
-To get a local copy of the repository please run the following commands on your terminal:
+### Prerequisites
 
-```
-$ cd <folder>
-```
+To get this project up and running, you must already have ruby installed on your computer.
 
-```
-$ git clone https://github.com/enkog/tic-tac-toe.git
-```
+### Installation
 
-**To run the code:**
+**To get this project set up on your local machine, follow these simple steps:**
 
-```bash
-$ bin/main.rb
-```
-
-#### Testing
-
-##### Install Rspec
-
-```bash
-$ gem install rspec
-```
-
-To test the code, run `rspec` from root of the folder using terminal.
-
-> Rspec is used for the test.
+1. Open Terminal.
+2. Navigate to your desired location to download the contents of this repository.
+3. Copy and paste the following code into the Terminal:
+   git clone https://github.com/enkog/Tic-Tac-Toe
+4. Hit enter.
+5. Once the repository has been cloned, navigate inside the repository and type:
+   bin/main.rb
+   This will run the game and you will be able to play it using the terminal.
+6. Have fun!
 
 ## Authors
 
