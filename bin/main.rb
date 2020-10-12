@@ -48,7 +48,7 @@ end
 puts
 puts 'LET THE GAME BEGIN !!!'
 puts
-
+display_board(game.board)
 # take players' inputs for game play
 no_winner = false
 winner_found = false
@@ -80,8 +80,10 @@ while !winner_found || !no_winner
     end
   end
 
+  invalid = proc { puts 'Invalid position, please enter another position ...' }
+
   # translate player's input into board index
-  board_index = game.input_to_index(position, game.board)
+  board_index = game.input_to_index(position, game.board, invalid)
 
   # update board with the current player's token at chosen board index
   game.update_board(board_index, game.board, current_token, current_player)
