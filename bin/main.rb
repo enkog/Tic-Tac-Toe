@@ -69,15 +69,19 @@ while !winner_found || !no_winner
   end
 
   # display current board before player's entry
-  display_board(game.board)
 
   puts 'Enter a position: '
-  position = gets.chomp
+  position = gets.chomp.to_i
 
-  get_position = proc { puts 'Check the game board and choose a valid position' }
+  unless (1..9).include? position
+    until (1..9).include? position
+      puts 'Wrong input type, Enter a valid position '
+      position = gets.chomp.to_i
+    end
+  end
 
   # translate player's input into board index
-  board_index = game.input_to_index(position.to_i, game.board, get_position)
+  board_index = game.input_to_index(position, game.board)
 
   # update board with the current player's token at chosen board index
   game.update_board(board_index, game.board, current_token, current_player)
