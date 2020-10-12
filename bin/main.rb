@@ -1,76 +1,114 @@
 #!/usr/bin/env ruby
+require_relative '../lib/game.rb'
+
+game = Game.new
+
+# Display the game board
+def display_board(board)
+  puts " #{board[0]}  | #{board[1]}  | #{board[2]}"
+  puts '-------------'
+  puts " #{board[3]}  | #{board[4]}  | #{board[5]}"
+  puts '-------------'
+  puts " #{board[6]}  | #{board[7]}  | #{board[8]}"
+end
 
 puts 'WELCOME TO TIC-TAC-TOE GAME !!!'
+puts
 
-# create an empty game board
-@board = %w[1 2 3 4 5 6 7 8 9]
-
-# create game tokens as an array of 2 items
-@game_tokens = %w[X O]
-
-# create an empty hash to hold player and token info for each player
-@assigned_tokens = {}
-
-# register two players
-puts 'Player 1, input name: '
-@player_one = gets.chomp
+# register the players
+puts 'Player 1, input your name: '
+player_one_name = gets.chomp
 
 puts 'Player 2, input name: '
-@player_two = gets.chomp
+player_two_name = gets.chomp
+puts
+player_one = game.create_player(player_one_name, nil, 0)
+player_two = game.create_player(player_two_name, nil, 0)
 
-# allow first player choose a game token X or O
-puts "#{@player_one}, Choose a token: 'X' or 'O'"
+# allow players to chose their tokens
+puts "#{player_one.name}, Choose a token: 'X' or 'O'"
 selected_token = gets.chomp.upcase
 
-# validate the token chosen
-if !@game_tokens.to_s.include? selected_token
-  puts "Invalid token, please select 'X' or 'O'"
-else
-  # assign the selected_token to player_one and the other token to player_two
-  puts 'Tokens assigned successfully'
-  puts "#{@player_one}'s Token:  #{@assigned_tokens[:player_one]}"
-  puts "#{@player_two}'s Token:  #{@assigned_tokens[:player_two]}"
+loop do
+  if !game.game_tokens.include? selected_token
+    puts "Invalid token, please select 'X' or 'O'"
+    selected_token = gets.chomp.upcase
+  else
+    player_one.token = selected_token
+    player_two.token = selected_token == game.game_tokens[0] ? game.game_tokens[1] : game.game_tokens[0]
+
+    puts 'Good choice!!'
+    puts
+    puts "#{player_one.name}'s Token:  #{player_one.token}"
+    puts "#{player_two.name}'s Token:  #{player_two.token}"
+    break
+  end
 end
 
+puts
+puts 'LET THE GAME BEGIN !!!'
+puts
+display_board(game.board)
+# take players' inputs for game play
 no_winner = false
 winner_found = false
-
-# determine first player
-
-# call current player method to determine who to play first
+last_token = nil
+current_player = nil
 
 while !winner_found || !no_winner
-  # display gameboard
+
   # prompt current player to select a move which is an index
+  current_token = game.switch_turn(player_one, player_two, last_token)
+
+  if current_token == player_one.token
+    current_player = player_one
+    puts "#{player_one.name}'s Turn (#{current_token})"
+  else
+    current_player = player_two
+    puts "#{player_two.name}'s Turn (#{current_token})"
+  end
+
+  # display current board before player's entry
+
   puts 'Enter a position: '
-  position = gets.chomp
-  puts position
+  position = gets.chomp.to_i
 
-  # validate the position. If already taken or if out of available board index,
-  # display message and prompt for the input again.
+  unless (1..9).include? position
+    until (1..9).include? position
+      puts 'Wrong input type, Enter a valid position '
+      position = gets.chomp.to_i
+    end
+  end
 
-  # if position is valid,
-  # update board with the current player's token
+  invalid = proc { puts 'Invalid position, please enter another position ...' }
 
-  # if current player move is up to three turns
-  # check for winning combination
-  # if current move matches winning combination
-  puts 'That is a winning combination'
-  winner_found = true
-  # display winning player's name, end game
+  # translate player's input into board index
+  board_index = game.input_to_index(position, game.board, invalid)
 
-  # else if board is full
-  # check for winning combination
-  # if winning combination is not found
-  no_winner = true
-  # then declare a draw.
+  # update board with the current player's token at chosen board index
+  game.update_board(board_index, game.board, current_token, current_player)
+  last_token = current_token
 
-  # else
-  # call current player method to determine who to play next
+  # display current board after player's entry
+  display_board(game.board)
+  is_board_full = game.check_board_full(game.board)
+
+  if is_board_full
+    winner_found = game.check_winning(current_player, game.board)
+    if winner_found
+      puts "#{current_player.name} has won"
+    else
+      # draw
+      no_winner = true
+      puts 'There is a tie'
+    end
+    break
+  elsif current_player.move_count >= 3
+    # check for winner
+    winner_found = game.check_winning(current_player, game.board)
+    if winner_found
+      puts "#{current_player.name} has won"
+      break
+    end
+  end
 end
-
-# prompt the player to choose to play again or exit
-
-puts 'Do you want to play again?'
-puts 'y/n'
-# Restart the game method if the player chooses y else exit the game
