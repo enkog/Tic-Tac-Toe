@@ -55,6 +55,17 @@ To get this project up and running, you must already have ruby installed on your
    This will run the game and you will be able to play it using the terminal.
 6. Have fun!
 
+#### Testing
+
+##### Install Rspec
+
+~~~bash
+$ gem install rspec
+~~~
+
+To test the code, run `rspec` from root of the folder using terminal.
+> Rspec is used for the test.
+
 ## Authors
 
 👤 **Kamwa Emmanuelle Alix**

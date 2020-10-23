@@ -79,6 +79,8 @@ class Game
     board_position = board_index.pred
     board[board_position] = current_token
     current_player.move_count += 1
+
+    board
   end
 
   def check_winning(player, board)

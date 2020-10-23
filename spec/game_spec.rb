@@ -59,4 +59,20 @@ RSpec.describe 'Game' do
       expect(game.check_winning(player2, %w[X O X 4 O 6 7 O 9])).to eq(true)
     end
   end
+
+  describe '#update_board' do
+    it 'places player token in the chosen position' do
+      expect(game.update_board(4, %w[1 2 3 4 5 6 7 8 9], 'X', player1)).to eq(%w[1 2 3 X 5 6 7 8 9])
+    end
+  end
+
+  describe '#check_board_full' do
+    it 'returns false when board is not full' do
+      expect(game.check_board_full(%w[1 2 X O 5 X 7 8 O])).to eq(false)
+    end
+
+    it 'returns true when board is full' do
+      expect(game.check_board_full(%w[X O X O X X O X O])).to eq(true)
+    end
+  end
 end
